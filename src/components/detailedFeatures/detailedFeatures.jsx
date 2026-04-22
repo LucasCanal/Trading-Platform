@@ -35,35 +35,38 @@ export default function DetailedFeatures() {
   ];
 
   return (
-    <section className="w-full bg-gray-100 py-24">
-      <div className="max-w-[1600px] mx-auto px-10">
+    /* Mantido bg-gray-100. Ajustado o padding vertical para mobile */
+    <section className="w-full bg-gray-100 py-16 md:py-24">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-28">
         
-        {/* HEADER */}
-        <div className="text-center mb-28">
-          <h2 className="text-5xl font-medium text-gray-900 mb-7">
+        {/* HEADER: Ajustado para consistência com as outras seções */}
+        <div className="text-center mb-16 md:mb-28">
+          <h2 className="text-3xl md:text-5xl font-medium text-gray-900 mb-5 md:mb-7 tracking-tight">
             Why Choose TradePro
           </h2>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 text-base md:text-lg max-w-2xl mx-auto">
             Join thousands of traders who trust us with their investments
           </p>
         </div>
 
-        {/* GRID - 3 COLUNAS EM TELAS GRANDES */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-12">
+        {/* GRID: 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-16 gap-y-10 md:gap-y-16">
           {details.map((item, index) => (
             <div key={index} className="flex items-start gap-5 group">
               
-              {/* ÍCONE COM FUNDO SUAVE */}
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors duration-300">
-                {item.icon}
+              {/* ÍCONE COM FUNDO SUAVE: Mantido o azul original */}
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 group-hover:scale-110 transition-all duration-300">
+                <div className="group-hover:rotate-3 transition-transform">
+                  {item.icon}
+                </div>
               </div>
 
               {/* TEXTO */}
               <div>
-                <h3 className="text-xl font-medium text-gray-900 mb-2">
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
                   {item.title}
                 </h3>
-                <p className="text-gray-500 leading-relaxed text-base">
+                <p className="text-gray-500 leading-relaxed text-sm md:text-base">
                   {item.description}
                 </p>
               </div>

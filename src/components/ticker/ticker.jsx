@@ -28,7 +28,6 @@ export default function Ticker() {
         prevPrices.current[coin.id] = coin.current_price;
         return { ...coin, trend };
       });
-
       setCoins(updated);
     } catch (err) {
       console.error(err);
@@ -42,46 +41,46 @@ export default function Ticker() {
   }, []);
 
   const TickerItem = ({ coin }) => (
-    <div className="flex items-center gap-4 min-w-fit px-10 py-5">
-      <span className="font-bold text-gray-900 uppercase tracking-wider">
+    <div className="flex items-center gap-3 md:gap-4 min-w-fit px-6 md:px-10 py-4 md:py-5">
+      <span className="font-bold text-gray-900 uppercase tracking-wider text-xs md:text-sm">
         {coin.symbol}/USD
       </span>
-
-      <span className={`font-medium ${
+      <span className={`font-semibold text-sm md:text-base ${
           coin.trend === "up" ? "text-green-600" : coin.trend === "down" ? "text-red-600" : "text-gray-800"
       }`}>
         {coin.current_price?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
       </span>
-
-      <span className={`text-sm font-bold ${
-          coin.price_change_percentage_24h >= 0 ? "text-green-500" : "text-red-500"
+      <span className={`text-[10px] md:text-sm font-bold px-2 py-0.5 rounded ${
+          coin.price_change_percentage_24h >= 0 ? "text-green-500 bg-green-50" : "text-red-500 bg-red-50"
       }`}>
         {coin.price_change_percentage_24h >= 0 ? "+" : ""}{coin.price_change_percentage_24h?.toFixed(2)}%
       </span>
-
-      <div className="h-6 w-px bg-gray-200 ml-6" />
+      <div className="h-6 w-px bg-gray-200 ml-4 md:ml-6" />
     </div>
   );
 
   return (
-    <div className="w-full bg-white border-t border-b overflow-hidden">
+    /* Mantido bg-white e removido qualquer margem superior para colar no Hero */
+    <div className="w-full bg-white border-t border-b border-gray-200 mt-0 overflow-hidden">
       <div className="relative w-full">
-        {/* Efeito de fade nas bordas para suavizar o scroll */}
-        <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white to-transparent z-10" />
+        {/* Gradientes laterais em branco para suavizar o scroll sobre o fundo branco */}
+        <div className="absolute left-0 top-0 w-16 md:w-32 h-full bg-gradient-to-r from-white to-transparent z-10" />
+        <div className="absolute right-0 top-0 w-16 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-10" />
 
         <div className="ticker-wrapper">
           <div className="ticker-track">
-            <div className="ticker-group">
-              {coins.map((coin) => (
-                <TickerItem key={`a-${coin.id}`} coin={coin} />
-              ))}
-            </div>
-            <div className="ticker-group">
-              {coins.map((coin) => (
-                <TickerItem key={`b-${coin.id}`} coin={coin} />
-              ))}
-            </div>
+            {coins.length > 0 ? (
+              <>
+                <div className="ticker-group">
+                  {coins.map((coin) => <TickerItem key={`a-${coin.id}`} coin={coin} />)}
+                </div>
+                <div className="ticker-group">
+                  {coins.map((coin) => <TickerItem key={`b-${coin.id}`} coin={coin} />)}
+                </div>
+              </>
+            ) : (
+              <div className="flex px-10 py-5 text-gray-400 italic text-sm">Loading market data...</div>
+            )}
           </div>
         </div>
       </div>

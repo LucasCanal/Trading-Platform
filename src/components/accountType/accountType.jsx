@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 
 export default function AccountTypes() {
-  // Estado para controlar qual card está selecionado (começa no index 1 que é o ECN)
   const [selectedAccount, setSelectedAccount] = useState(1);
 
   const accounts = [
@@ -31,7 +30,7 @@ export default function AccountTypes() {
         "Advanced traders",
       ],
       buttonText: "Read More",
-      badge: "Most Popular", // Badge Fixo
+      badge: "Most Popular",
     },
     {
       name: "Pro",
@@ -49,21 +48,22 @@ export default function AccountTypes() {
   ];
 
   return (
-    <section className="w-full bg-gray-50/50 py-24">
-      <div className="max-w-[1600px] mx-auto px-10">
+    /* Mantido bg-gray-50/50. Ajustado py para mobile */
+    <section className="w-full bg-gray-50/50 py-16 md:py-24">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-28">
         
-        {/* HEADER */}
-        <div className="text-center mb-28">
-          <h2 className="text-5xl font-medium text-gray-900 mb-4">
+        {/* HEADER: Responsivo */}
+        <div className="text-center mb-16 md:mb-28">
+          <h2 className="text-3xl md:text-5xl font-medium text-gray-900 mb-4 md:mb-6 tracking-tight">
             Choose Your Account Type
           </h2>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 text-base md:text-lg max-w-2xl mx-auto">
             Select the perfect account that matches your trading style and experience
           </p>
         </div>
 
-        {/* GRID DE CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {/* GRID DE CARDS: Ajustado gap e comportamento de escala */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-8 items-stretch">
           {accounts.map((acc, index) => {
             const isSelected = selectedAccount === index;
 
@@ -73,13 +73,13 @@ export default function AccountTypes() {
                 onClick={() => setSelectedAccount(index)} 
                 className={`relative flex flex-col p-8 rounded-[32px] transition-all duration-500 cursor-pointer ${
                   isSelected 
-                  ? "bg-white border-2 border-blue-500 shadow-2xl scale-105 z-10" 
+                  ? "bg-white border-2 border-blue-500 shadow-2xl md:scale-105 z-10" 
                   : "bg-white border border-gray-100 shadow-sm hover:border-blue-200"
                 }`}
               >
               
                 {acc.badge && (
-                  <div className={`absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-sm font-semibold shadow-lg transition-colors ${
+                  <div className={`absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs md:text-sm font-semibold shadow-lg transition-colors z-20 ${
                     isSelected ? "bg-blue-500 text-white" : "bg-gray-400 text-white"
                   }`}>
                     {acc.badge}
@@ -87,14 +87,14 @@ export default function AccountTypes() {
                 )}
 
                 <div className="text-center mb-8">
-                  <h3 className={`text-2xl font-medium mb-6 transition-colors ${isSelected ? "text-blue-600" : "text-gray-900"}`}>
+                  <h3 className={`text-xl md:text-2xl font-bold mb-6 transition-colors ${isSelected ? "text-blue-600" : "text-gray-900"}`}>
                     {acc.name}
                   </h3>
                   
                   {/* ÁREA DE SPREADS */}
                   <div className={`rounded-2xl p-6 mb-6 transition-colors ${isSelected ? "bg-blue-50" : "bg-gray-50"}`}>
-                    <p className="text-sm text-gray-500 uppercase tracking-wider mb-1">Spreads from</p>
-                    <p className={`text-3xl font-black ${isSelected ? "text-blue-700" : "text-gray-900"}`}>
+                    <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">Spreads from</p>
+                    <p className={`text-2xl md:text-3xl font-black ${isSelected ? "text-blue-700" : "text-gray-900"}`}>
                       {acc.spreads}
                     </p>
                   </div>
@@ -102,12 +102,12 @@ export default function AccountTypes() {
                   {/* INFO ADICIONAL */}
                   <div className="flex justify-between text-left border-b border-gray-100 pb-6 mb-6">
                     <div>
-                      <p className="text-xs text-gray-400 uppercase">Leverage</p>
-                      <p className="font-medium text-gray-700">{acc.leverage}</p>
+                      <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Leverage</p>
+                      <p className="text-sm md:text-base font-bold text-gray-700">{acc.leverage}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-400 uppercase">Commission</p>
-                      <p className="font-medium text-gray-700">{acc.commission}</p>
+                      <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Commission</p>
+                      <p className="text-sm md:text-base font-bold text-gray-700">{acc.commission}</p>
                     </div>
                   </div>
                 </div>
@@ -117,15 +117,15 @@ export default function AccountTypes() {
                   {acc.features.map((feature, fIndex) => (
                     <li key={fIndex} className="flex items-center gap-3 text-gray-600">
                       <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center transition-colors ${isSelected ? "bg-blue-500" : "bg-blue-50"}`}>
-                        <Check className={`w-3 h-3 ${isSelected ? "text-white" : "text-blue-500"}`} strokeWidth={3} />
+                        <Check className={`w-3 h-3 ${isSelected ? "text-white" : "text-blue-500"}`} strokeWidth={4} />
                       </div>
-                      <span className="text-sm">{feature}</span>
+                      <span className="text-sm md:text-base font-medium">{feature}</span>
                     </li>
                   ))}
                 </ul>
 
                 <button 
-                  className={`w-full py-4 rounded-xl font-medium transition-all ${
+                  className={`w-full py-4 rounded-xl font-bold text-sm md:text-base transition-all active:scale-95 ${
                     isSelected 
                     ? "bg-blue-500 text-white shadow-lg shadow-blue-200" 
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"

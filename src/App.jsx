@@ -14,7 +14,7 @@ import LoginPage from "./pages/login";
 import CreateAccount from "./pages/createAccount";
 import Dashboard from "./pages/dashboard";
 
-// Componente que protege rotas privadas
+// Componente de Rota Privada
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -32,14 +32,15 @@ function App() {
     location.pathname === "/dashboard";
 
   return (
-    <div className="w-full min-h-screen bg-gray-50">
+    <div className="w-full min-h-screen bg-gray-50 overflow-x-hidden">
+      
       {!isAuthPage && <Navbar />}
 
       <Routes>
         <Route
           path="/"
           element={
-            <>
+            <div className="flex flex-col w-full">
               <HeroSection />
               <Ticker />
               <FeatureSection />
@@ -48,14 +49,14 @@ function App() {
               <AccountTypes />
               <AffiliateSection />
               <Rodape />
-            </>
+            </div>
           }
         />
 
+        {/* Autenticação */}
         <Route path="/createAccount" element={<CreateAccount />} />
         <Route path="/login" element={<LoginPage />} />
 
-        {/* Rota protegida — só acessa com token válido */}
         <Route
           path="/dashboard"
           element={
@@ -64,6 +65,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
       {!isAuthPage && location.pathname !== "/" && <Rodape />}
